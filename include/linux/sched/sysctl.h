@@ -69,7 +69,6 @@ extern unsigned int sysctl_preemptoff_tracing_threshold_ns;
 extern unsigned int sysctl_irqsoff_tracing_threshold_ns;
 #endif
 #ifdef CONFIG_PELT_COMPATIBILITY_LAYER
-static unsigned int sysctl_sched_boost;
 static unsigned int sysctl_sched_prefer_spread;
 static unsigned int sysctl_sched_busy_hyst_enable_cpus;
 static unsigned int sysctl_sched_busy_hyst;
