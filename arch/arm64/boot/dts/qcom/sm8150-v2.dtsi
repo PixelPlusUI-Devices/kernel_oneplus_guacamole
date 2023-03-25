@@ -1,4 +1,4 @@
-/* Copyright (c) 2019-2021, The Linux Foundation. All rights reserved.
+/* Copyright (c) 2019-2020, The Linux Foundation. All rights reserved.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -29,30 +29,6 @@
 	/delete-node/ suspendable-ddr-bw-opp-table;
 };
 
-&clock_cpucc {
-	qcom,cpufreq-table-0 =
-		<1708800>,
-		<1785600>;
-
-	qcom,cpufreq-table-4 =
-		<1401600>,
-		<1708800>,
-		<1804800>,
-		<1920000>,
-		<2016000>,
-		<2323200>,
-		<2419200>;
-
-	qcom,cpufreq-table-7 =
-		<1804800>,
-		<2016000>,
-		<2227200>,
-		<2323200>,
-		<2534400>,
-		<2841600>,
-		<2956800>;
-};
-
 &mdss_mdp {
 	qcom,fullsize-va-map;
 	qcom,sde-min-core-ib-kbps = <0>;
@@ -70,6 +46,10 @@
 		iommus = <&apps_smmu 0x2041 0x0>;
 		qcom,fullsize-va-map;
 	};
+};
+
+&tmc_etr {
+	/delete-property/ qcom,smmu-s1-bypass;
 };
 
 &mdss_dsi0_pll {
@@ -443,8 +423,24 @@
 &energy_costs {
 	CPU_COST_0: core-cost0 {
 		busy-cost-data = <
-			 293  137
-			 306  146
+			 300000 24
+			 403200 25
+			 499200 27
+			 576000 29
+			 672000 33
+			 768000 37
+			 844800 42
+			 940800 47
+			1036800 54
+			1113600 59
+			1209600 66
+			1305600 73
+			1382400 79
+			1478400 88
+			1555200 96
+			1632000 105
+			1708800 115
+			1785600 128
 		>;
 		idle-cost-data = <
 			18 14 12
@@ -453,13 +449,23 @@
 
 	CPU_COST_1: core-cost1 {
 		busy-cost-data = <
-			 505  311
-			 616  398
-			 650  456
-			 689  507
-			 726  558
-			 836  717
-			 871  845
+			 710400 165
+			 825600 195
+			 940800 228
+			1056000 264
+			1171200 301
+			1286400 339
+			1401600 378
+			1497600 411
+			1612800 453
+			1708800 491
+			1804800 534
+			1920000 594
+			2016000 654
+			2131200 740
+			2227200 825
+			2323200 920
+			2419200 1022
 		>;
 		idle-cost-data = <
 			80 60 40
@@ -468,12 +474,27 @@
 
 	CPU_COST_2: core-cost2 {
 		busy-cost-data = <
-			 650  446
-			 726  513
-			 802  622
-			 837  704
-			 914  824
-			1024 1092
+			 825600 227
+			 940800 262
+			1056000 302
+			1171200 348
+			1286400 398
+			1401600 451
+			1497600 498
+			1612800 556
+			1708800 606
+			1804800 655
+			1920000 716
+			2016000 766
+			2131200 826
+			2227200 878
+			2323200 933
+			2419200 992
+			2534400 1075
+			2649600 1179
+			2745600 1288
+			2841600 1427
+			2956800 1670
 		>;
 		idle-cost-data = <
 			110 90 70
@@ -482,8 +503,24 @@
 
 	CLUSTER_COST_0: cluster-cost0 {
 		busy-cost-data = <
-			 293   16
-			 306   17
+			 300000 3
+			 403200 4
+			 499200 4
+			 576000 4
+			 672000 5
+			 768000 5
+			 844800 6
+			 940800 7
+			1036800 8
+			1113600 9
+			1209600 10
+			1305600 11
+			1382400 12
+			1478400 13
+			1555200 14
+			1632000 15
+			1708800 16
+			1785600 17
 		>;
 		idle-cost-data = <
 			3 2 1
@@ -492,13 +529,23 @@
 
 	CLUSTER_COST_1: cluster-cost1 {
 		busy-cost-data = <
-			 505   32
-			 616   40
-			 650   45
-			 689   50
-			 726   57
-			 836   90
-			 871  106
+			 710400 25
+			 825600 26
+			 940800 27
+			1056000 28
+			1171200 29
+			1286400 30
+			1401600 32
+			1497600 34
+			1612800 37
+			1708800 40
+			1804800 45
+			1920000 50
+			2016000 57
+			2131200 64
+			2227200 74
+			2323200 90
+			2419200 106
 		>;
 		idle-cost-data = <
 			3 2 1
@@ -507,12 +554,27 @@
 
 	CLUSTER_COST_2: cluster-cost2 {
 		busy-cost-data = <
-			 650   77
-			 726  100
-			 802  120
-			 837  128
-			 914  140
-			1024  180
+			 825600 30
+			 940800 33
+			1056000 36
+			1171200 39
+			1286400 42
+			1401600 46
+			1497600 49
+			1612800 55
+			1708800 67
+			1804800 77
+			1920000 87
+			2016000 100
+			2131200 110
+			2227200 120
+			2323200 128
+			2419200 135
+			2534400 140
+			2649600 147
+			2745600 160
+			2841600 180
+			2956800 197
 		>;
 		idle-cost-data = <
 			3 2 1
@@ -570,11 +632,11 @@
 			#size-cells = <0>;
 
 			qcom,speed-bin = <0>;
-			qcom,initial-pwrlevel = <6>;
+			qcom,initial-pwrlevel = <4>;
 
 			qcom,gpu-pwrlevel@0 {
 				reg = <0>;
-				qcom,gpu-freq = <757000000>;
+				qcom,gpu-freq = <585000000>;
 				qcom,bus-freq = <11>;
 				qcom,bus-min = <11>;
 				qcom,bus-max = <11>;
@@ -582,54 +644,38 @@
 
 			qcom,gpu-pwrlevel@1 {
 				reg = <1>;
-				qcom,gpu-freq = <675000000>;
-				qcom,bus-freq = <11>;
-				qcom,bus-min = <11>;
-				qcom,bus-max = <11>;
-			};
-
-			qcom,gpu-pwrlevel@2 {
-				reg = <2>;
-				qcom,gpu-freq = <585000000>;
-				qcom,bus-freq = <10>;
-				qcom,bus-min = <9>;
-				qcom,bus-max = <11>;
-			};
-
-			qcom,gpu-pwrlevel@3 {
-				reg = <3>;
 				qcom,gpu-freq = <499200000>;
 				qcom,bus-freq = <9>;
 				qcom,bus-min = <8>;
 				qcom,bus-max = <11>;
 			};
 
-			qcom,gpu-pwrlevel@4 {
-				reg = <4>;
+			qcom,gpu-pwrlevel@2 {
+				reg = <2>;
 				qcom,gpu-freq = <427000000>;
 				qcom,bus-freq = <6>;
 				qcom,bus-min = <5>;
 				qcom,bus-max = <9>;
 			};
 
-			qcom,gpu-pwrlevel@5 {
-				reg = <5>;
+			qcom,gpu-pwrlevel@3 {
+				reg = <3>;
 				qcom,gpu-freq = <345000000>;
-				qcom,bus-freq = <4>;
+				qcom,bus-freq = <3>;
 				qcom,bus-min = <3>;
 				qcom,bus-max = <5>;
 			};
 
-			qcom,gpu-pwrlevel@6 {
-				reg = <6>;
+			qcom,gpu-pwrlevel@4 {
+				reg = <4>;
 				qcom,gpu-freq = <257000000>;
 				qcom,bus-freq = <3>;
 				qcom,bus-min = <2>;
 				qcom,bus-max = <4>;
 			};
 
-			qcom,gpu-pwrlevel@7 {
-				reg = <7>;
+			qcom,gpu-pwrlevel@5 {
+				reg = <5>;
 				qcom,gpu-freq = <0>;
 				qcom,bus-freq = <0>;
 				qcom,bus-min = <0>;
@@ -1204,7 +1250,7 @@
 	     USB3_UNI_QSERDES_COM_DIV_FRAC_START3_MODE0 0x02 0
 	     USB3_UNI_QSERDES_COM_BIN_VCOCAL_CMP_CODE1_MODE0 0xca 0
 	     USB3_UNI_QSERDES_COM_BIN_VCOCAL_CMP_CODE2_MODE0 0x1e 0
-	     USB3_UNI_QSERDES_COM_CP_CTRL_MODE0 0x02 0
+	     USB3_UNI_QSERDES_COM_CP_CTRL_MODE0 0x06 0
 	     USB3_UNI_QSERDES_COM_PLL_RCTRL_MODE0 0x16 0
 	     USB3_UNI_QSERDES_COM_PLL_CCTRL_MODE0 0x36 0
 	     USB3_UNI_QSERDES_COM_VCO_TUNE1_MODE0 0x24 0
@@ -1235,12 +1281,12 @@
 	     USB3_UNI_QSERDES_COM_SSC_STEP_SIZE1_MODE0 0xde 0
 	     USB3_UNI_QSERDES_COM_SSC_STEP_SIZE2_MODE0 0x07 0
 	     USB3_UNI_QSERDES_COM_VCO_TUNE_MAP 0x02 0
-	     USB3_UNI_QSERDES_RX_RX_MODE_00_HIGH4 0xa4 0
+	     USB3_UNI_QSERDES_RX_RX_MODE_00_HIGH4 0xb8 0
 	     USB3_UNI_QSERDES_RX_RX_MODE_00_HIGH3 0x7f 0
 	     USB3_UNI_QSERDES_RX_RX_MODE_00_HIGH2 0x37 0
 	     USB3_UNI_QSERDES_RX_RX_MODE_00_HIGH 0x2f 0
-	     USB3_UNI_QSERDES_RX_RX_MODE_00_LOW 0xaf 0
-	     USB3_UNI_QSERDES_RX_RX_MODE_01_HIGH4 0xb6 0
+	     USB3_UNI_QSERDES_RX_RX_MODE_00_LOW 0xef 0
+	     USB3_UNI_QSERDES_RX_RX_MODE_01_HIGH4 0xb3 0
 	     USB3_UNI_QSERDES_RX_RX_MODE_01_HIGH3 0x0b 0
 	     USB3_UNI_QSERDES_RX_RX_MODE_01_HIGH2 0x5c 0
 	     USB3_UNI_QSERDES_RX_RX_MODE_01_HIGH 0xdc 0
@@ -1254,9 +1300,10 @@
 	     USB3_UNI_QSERDES_RX_UCDR_FASTLOCK_COUNT_LOW 0xff 0
 	     USB3_UNI_QSERDES_RX_UCDR_FASTLOCK_COUNT_HIGH 0x0f 0
 	     USB3_UNI_QSERDES_RX_UCDR_SO_SATURATION_AND_ENABLE 0x7f 0
-	     USB3_UNI_QSERDES_RX_UCDR_FO_GAIN 0x0a 0
+	     USB3_UNI_QSERDES_RX_UCDR_FO_GAIN 0x08 0
 	     USB3_UNI_QSERDES_RX_VGA_CAL_CNTRL1 0x54 0
-	     USB3_UNI_QSERDES_RX_VGA_CAL_CNTRL2 0x00 0
+	     USB3_UNI_QSERDES_RX_VGA_CAL_CNTRL2 0x0c 0
+	     USB3_UNI_QSERDES_RX_GM_CAL 0x1f 0
 	     USB3_UNI_QSERDES_RX_RX_EQU_ADAPTOR_CNTRL2 0x0f 0
 	     USB3_UNI_QSERDES_RX_RX_EQU_ADAPTOR_CNTRL3 0x4a 0
 	     USB3_UNI_QSERDES_RX_RX_EQU_ADAPTOR_CNTRL4 0x0a 0
@@ -1268,13 +1315,12 @@
 	     USB3_UNI_QSERDES_RX_RX_IDAC_TSETTLE_HIGH 0x00 0
 	     USB3_UNI_QSERDES_RX_RX_IDAC_TSETTLE_LOW 0xc0 0
 	     USB3_UNI_QSERDES_RX_DFE_CTLE_POST_CAL_OFFSET 0x20 0
-	     USB3_UNI_QSERDES_RX_UCDR_SO_GAIN 0x06 0
+	     USB3_UNI_QSERDES_RX_UCDR_SO_GAIN 0x04 0
 	     USB3_UNI_QSERDES_RX_DCC_CTRL1 0xc 0
-	     USB3_UNI_QSERDES_RX_GM_CAL 0x1f 0
 	     USB3_UNI_QSERDES_TX_RCV_DETECT_LVL_2 0x12 0
 	     USB3_UNI_QSERDES_TX_LANE_MODE_1 0x95 0
 	     USB3_UNI_QSERDES_TX_PI_QEC_CTRL 0x40 0
-	     USB3_UNI_QSERDES_TX_RES_CODE_LANE_OFFSET_TX 0x10 0
+	     USB3_UNI_QSERDES_TX_RES_CODE_LANE_OFFSET_TX 0x05 0
 	     USB3_UNI_PCS_LOCK_DETECT_CONFIG1 0xd0 0
 	     USB3_UNI_PCS_LOCK_DETECT_CONFIG2 0x07 0
 	     USB3_UNI_PCS_LOCK_DETECT_CONFIG3 0x20 0
@@ -1284,7 +1330,7 @@
 	     USB3_UNI_PCS_RX_SIGDET_LVL 0xaa 0
 	     USB3_UNI_PCS_USB3_RXEQTRAINING_DFE_TIME_S2 0x07 0
 	     USB3_UNI_PCS_USB3_LFPS_DET_HIGH_COUNT_VAL 0xf8 0
-	     USB3_UNI_PCS_CDR_RESET_TIME 0x0a 0
+	     USB3_UNI_PCS_CDR_RESET_TIME 0x0f 0
 	     USB3_UNI_PCS_ALIGN_DETECT_CONFIG1 0x88 0
 	     USB3_UNI_PCS_ALIGN_DETECT_CONFIG2 0x13 0
 	     USB3_UNI_PCS_EQ_CONFIG1 0x4b 0
